@@ -119,9 +119,12 @@ void Snake::AddPart()
 
 void Snake::draw(sf::RenderWindow& window)
 {
-	for (sf::Sprite const& x : sprites)
+	if (!is_dead)
 	{
-		window.draw(x);
+		for (sf::Sprite const& x : sprites)
+		{
+			window.draw(x);
+		}
 	}
 }
 
@@ -161,6 +164,43 @@ void Snake::MoveDown()
 		// and it will move all of the other blocks up one position.
 		SwapSprites(black_square, sprites[i]);
 	}
+}
+
+auto Snake::difference_between(int a, int b) -> int
+{
+	if (a > b)
+	{
+		return a - b;
+	}
+	else
+	{
+		return b - a;
+	}
+}
+
+void Snake::Die()
+{
+	is_dead = true;
+}
+
+bool Snake::HasCollidedWithSelf()
+{
+	for (int i = 0; i < sprites.size(); i++)
+	{
+		for (int j = 0; j < sprites.size(); j++)
+		{
+			if (i != j)
+			{
+				sf::Sprite A = sprites[i];
+				sf::Sprite B = sprites[j];
+				if (A.getGlobalBounds().intersects(B.getGlobalBounds()) && difference_between(i, j) > 2)
+				{
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }
 
 void Snake::MoveUp()

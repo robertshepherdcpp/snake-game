@@ -45,6 +45,11 @@ int main()
             fruit.SetHasBeenEaten();
         }
 
+        if (snake.HasCollidedWithSelf())
+        {
+            snake.Die();
+        }
+
         window.clear();
         snake.draw(window);
         fruit.draw(window);
