@@ -2,6 +2,8 @@
 
 #include<utility>
 #include<random>
+#include<iostream>
+
 
 #include "Fruit.h"
 
@@ -50,6 +52,7 @@ bool Fruit::HasBeenEaten()
 void Fruit::SetHasBeenEaten()
 {
 	has_been_eaten = true;
+	std::cout << "Fruit has been eaten\n";
 }
 
 void Fruit::Hide()

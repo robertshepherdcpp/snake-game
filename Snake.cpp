@@ -161,7 +161,7 @@ void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
 
 void Snake::MoveDown()
 {
-	if (!(CurrentStateMoving == 4))
+	if (!(CurrentStateMoving == 4) || true)
 	{
 		CurrentStateMoving = 4;
 		sf::Sprite head = sprites[0];
@@ -249,7 +249,7 @@ void Snake::Update()
 
 void Snake::MoveUp()
 {
-	if (!(CurrentStateMoving == 3))
+	if (!(CurrentStateMoving == 3) || true)
 	{
 		CurrentStateMoving = 3;
 		sf::Sprite head = sprites[0];
@@ -305,7 +305,7 @@ void Snake::Move()
 
 void Snake::MoveRight()
 {
-	if (!(CurrentStateMoving == 1))
+	if (!(CurrentStateMoving == 1) || true)
 	{
 		CurrentStateMoving = 1;
 		sf::Sprite head = sprites[0];
@@ -328,9 +328,8 @@ void Snake::MoveRight()
 
 void Snake::MoveLeft()
 {
-	if (!(CurrentStateMoving == 2))
+	if (!(CurrentStateMoving == 2) || true)
 	{
-		CurrentStateMoving = 2;
 		sf::Sprite head = sprites[0];
 		sf::Texture texture_;
 		if (!texture_.loadFromFile("black_square.png"))
@@ -346,5 +345,6 @@ void Snake::MoveLeft()
 			// and it will move all of the other blocks up one position.
 			SwapSprites(black_square, sprites[i]);
 		}
+		CurrentStateMoving = 2;
 	}
 }
