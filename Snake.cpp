@@ -142,9 +142,19 @@ bool Snake::AnyHaveCollisionsWith(Fruit& f)
 
 void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
 {
-	sf::Sprite CopyOfASprite = A;
-	A = B;
-	B = CopyOfASprite;
+	//sf::Sprite CopyOfASprite = A;
+	//A = B;
+	//B = CopyOfASprite
+
+	// first swap the textures.
+	sf::Texture CopyOfATexture = *A.getTexture();
+	A.setTexture(*B.getTexture());
+	B.setTexture(CopyOfATexture);
+
+	// then swap the positions
+	sf::Vector2f CopyOfAPosition = A.getPosition();
+	A.setPosition(B.getPosition());
+	B.setPosition(CopyOfAPosition);
 }
 
 void Snake::MoveDown()
@@ -193,7 +203,7 @@ bool Snake::HasCollidedWithSelf()
 			{
 				sf::Sprite A = sprites[i];
 				sf::Sprite B = sprites[j];
-				if (A.getGlobalBounds().intersects(B.getGlobalBounds()) && difference_between(i, j) > 2)
+				if (A.getGlobalBounds().intersects(B.getGlobalBounds()) && (difference_between(i, j) > 2) && !is_dead)
 				{
 					return true;
 				}
