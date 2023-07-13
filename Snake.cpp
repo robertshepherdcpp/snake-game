@@ -121,6 +121,17 @@ void Snake::draw(sf::RenderWindow& window)
 {
 	if (!is_dead)
 	{
+		sf::Texture snake_texture;
+		if (!snake_texture.loadFromFile("snake_part.png"))
+		{
+			// handle error
+		}
+
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			sprites[i].setTexture(snake_texture);
+		}
+
 		for (sf::Sprite const& x : sprites)
 		{
 			window.draw(x);
