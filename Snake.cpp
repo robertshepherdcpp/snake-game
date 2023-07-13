@@ -161,21 +161,24 @@ void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
 
 void Snake::MoveDown()
 {
-	CurrentStateMoving = 4;
-	sf::Sprite head = sprites[0];
-	sf::Texture texture_;
-	if (!texture_.loadFromFile("black_square.png"))
+	if (!(CurrentStateMoving == 4))
 	{
-		// handle the error
-	}
-	sf::Sprite black_square;
-	black_square.setTexture(texture_);
-	black_square.setPosition((head.getPosition().x), (head.getPosition().y + (head.getGlobalBounds().height / 2)));
-	for (int i = 0; i < sprites.size(); i++)
-	{
-		// so we will have an invisible block and then we just keep swapping that block with the other blocks
-		// and it will move all of the other blocks up one position.
-		SwapSprites(black_square, sprites[i]);
+		CurrentStateMoving = 4;
+		sf::Sprite head = sprites[0];
+		sf::Texture texture_;
+		if (!texture_.loadFromFile("black_square.png"))
+		{
+			// handle the error
+		}
+		sf::Sprite black_square;
+		black_square.setTexture(texture_);
+		black_square.setPosition((head.getPosition().x), (head.getPosition().y + (head.getGlobalBounds().height / 2)));
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			// so we will have an invisible block and then we just keep swapping that block with the other blocks
+			// and it will move all of the other blocks up one position.
+			SwapSprites(black_square, sprites[i]);
+		}
 	}
 }
 
@@ -246,18 +249,21 @@ void Snake::Update()
 
 void Snake::MoveUp()
 {
-	CurrentStateMoving = 3;
-	sf::Sprite head = sprites[0];
-	sf::Sprite black_square = head;
-	black_square.setPosition((head.getPosition().x), (head.getPosition().y - (head.getGlobalBounds().height / 2)));
-	sprites.push_back(black_square);
-	for (int i = 0; i < sprites.size(); i++)
+	if (!(CurrentStateMoving == 3))
 	{
-		// so we will have an invisible block and then we just keep swapping that block with the other blocks
-		// and it will move all of the other blocks up one position.
-		SwapSprites(black_square, sprites[i]);
+		CurrentStateMoving = 3;
+		sf::Sprite head = sprites[0];
+		sf::Sprite black_square = head;
+		black_square.setPosition((head.getPosition().x), (head.getPosition().y - (head.getGlobalBounds().height / 2)));
+		sprites.push_back(black_square);
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			// so we will have an invisible block and then we just keep swapping that block with the other blocks
+			// and it will move all of the other blocks up one position.
+			SwapSprites(black_square, sprites[i]);
+		}
+		sprites.pop_back();
 	}
-	sprites.pop_back();
 }
 
 // MoveRight = 1
@@ -299,40 +305,46 @@ void Snake::Move()
 
 void Snake::MoveRight()
 {
-	CurrentStateMoving = 1;
-	sf::Sprite head = sprites[0];
-	sf::Texture texture_;
-	if (!texture_.loadFromFile("black_square.png"))
+	if (!(CurrentStateMoving == 1))
 	{
-		// handle the error
-	}
-	sf::Sprite black_square;
-	black_square.setTexture(texture_);
-	black_square.setPosition((head.getPosition().x + (head.getGlobalBounds().width / 2)), head.getPosition().y);
-	for (int i = 0; i < sprites.size(); i++)
-	{
-		// so we will have an invisible block and then we just keep swapping that block with the other blocks
-		// and it will move all of the other blocks up one position.
-		SwapSprites(black_square, sprites[i]);
+		CurrentStateMoving = 1;
+		sf::Sprite head = sprites[0];
+		sf::Texture texture_;
+		if (!texture_.loadFromFile("black_square.png"))
+		{
+			// handle the error
+		}
+		sf::Sprite black_square;
+		black_square.setTexture(texture_);
+		black_square.setPosition((head.getPosition().x + (head.getGlobalBounds().width / 2)), head.getPosition().y);
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			// so we will have an invisible block and then we just keep swapping that block with the other blocks
+			// and it will move all of the other blocks up one position.
+			SwapSprites(black_square, sprites[i]);
+		}
 	}
 }
 
 void Snake::MoveLeft()
 {
-	CurrentStateMoving = 2;
-	sf::Sprite head = sprites[0];
-	sf::Texture texture_;
-	if (!texture_.loadFromFile("black_square.png"))
+	if (!(CurrentStateMoving == 2))
 	{
-		// handle the error
-	}
-	sf::Sprite black_square;
-	black_square.setTexture(texture_);
-	black_square.setPosition((head.getPosition().x - (head.getGlobalBounds().width / 2)), head.getPosition().y);
-	for (int i = 0; i < sprites.size(); i++)
-	{
-		// so we will have an invisible block and then we just keep swapping that block with the other blocks
-		// and it will move all of the other blocks up one position.
-		SwapSprites(black_square, sprites[i]);
+		CurrentStateMoving = 2;
+		sf::Sprite head = sprites[0];
+		sf::Texture texture_;
+		if (!texture_.loadFromFile("black_square.png"))
+		{
+			// handle the error
+		}
+		sf::Sprite black_square;
+		black_square.setTexture(texture_);
+		black_square.setPosition((head.getPosition().x - (head.getGlobalBounds().width / 2)), head.getPosition().y);
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			// so we will have an invisible block and then we just keep swapping that block with the other blocks
+			// and it will move all of the other blocks up one position.
+			SwapSprites(black_square, sprites[i]);
+		}
 	}
 }
