@@ -50,6 +50,8 @@ int main()
             snake.Die();
         }
 
+        snake.Move();
+
         window.clear();
         snake.draw(window);
         fruit.draw(window);

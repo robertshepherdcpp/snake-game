@@ -3,6 +3,9 @@
 #include "Snake.h"
 
 #include<iostream>
+#include<chrono>
+
+using namespace std::chrono_literals;
 
 Snake::Snake()
 {
@@ -170,6 +173,7 @@ void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
 
 void Snake::MoveDown()
 {
+	CurrentStateMoving = 4;
 	sf::Sprite head = sprites[0];
 	sf::Texture texture_;
 	if (!texture_.loadFromFile("black_square.png"))
@@ -226,6 +230,7 @@ bool Snake::HasCollidedWithSelf()
 
 void Snake::MoveUp()
 {
+	CurrentStateMoving = 3;
 	std::cout << "MoveUp called\n";
 	sf::Sprite head = sprites[0];
 	sf::Sprite black_square = head;
@@ -240,9 +245,46 @@ void Snake::MoveUp()
 	sprites.pop_back();
 }
 
+// MoveRight = 1
+// MoveLeft = 2
+// MoveUp = 3
+// MoveDown = 4
+
+void Snake::Move()
+{
+	if (((std::chrono::system_clock::now() - last_time_point) >= current_speed) && (!is_dead))
+	{
+		last_time_point = std::chrono::system_clock::now();
+		if (CurrentStateMoving == 0)
+		{
+			// not moving atall
+		}
+		else if (CurrentStateMoving == 1)
+		{
+			// Moving Right
+			MoveRight();
+		}
+		else if (CurrentStateMoving == 2)
+		{
+			// Moving Left
+			MoveLeft();
+		}
+		else if (CurrentStateMoving == 3)
+		{
+			// Moving Up
+			MoveUp();
+		}
+		else if (CurrentStateMoving == 4)
+		{
+			// Moving down
+			MoveDown();
+		}
+	}
+}
 
 void Snake::MoveRight()
 {
+	CurrentStateMoving = 1;
 	sf::Sprite head = sprites[0];
 	sf::Texture texture_;
 	if (!texture_.loadFromFile("black_square.png"))
@@ -262,6 +304,7 @@ void Snake::MoveRight()
 
 void Snake::MoveLeft()
 {
+	CurrentStateMoving = 2;
 	sf::Sprite head = sprites[0];
 	sf::Texture texture_;
 	if (!texture_.loadFromFile("black_square.png"))

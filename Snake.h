@@ -3,8 +3,11 @@
 #include<SFML/Graphics.hpp>
 
 #include<vector>
+#include<chrono>
 
 #include "Fruit.h"
+
+using namespace std::chrono_literals;
 
 struct Snake
 {
@@ -27,6 +30,7 @@ struct Snake
 	void MoveDown();
 
 	void Die();
+	void Move();
 
 	auto difference_between(int a, int b) -> int;
 	void SwapSprites(sf::Sprite& A, sf::Sprite& B);
@@ -37,4 +41,14 @@ struct Snake
 	std::vector<sf::Sprite> sprites{};
 
 	bool is_dead = false;
+	int CurrentStateMoving = 0;
+
+	std::chrono::time_point<std::chrono::system_clock> last_time_point = std::chrono::system_clock::now();
+
+	decltype(500ms) current_speed = 500ms;
+
+	// MoveRight = 1
+    // MoveLeft = 2
+    // MoveUp = 3
+    // MoveDown = 4
 };
