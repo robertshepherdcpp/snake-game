@@ -3,6 +3,7 @@
 #include "Snake.h"
 #include "Fruit.h"
 
+#include<iostream>
 
 int main()
 {
@@ -17,7 +18,10 @@ int main()
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
+                std::cout << "Your final score was: " << snake.sprites.size() << "\n";
                 window.close();
+            }
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::D)
