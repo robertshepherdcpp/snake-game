@@ -31,6 +31,7 @@ struct Snake
 
 	void Die();
 	void Move();
+	void Update();
 
 	auto difference_between(int a, int b) -> int;
 	void SwapSprites(sf::Sprite& A, sf::Sprite& B);

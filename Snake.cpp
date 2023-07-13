@@ -2,7 +2,6 @@
 
 #include "Snake.h"
 
-#include<iostream>
 #include<chrono>
 
 using namespace std::chrono_literals;
@@ -75,14 +74,11 @@ bool Snake::IsPartBelowOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheLeftOfLas
 
 void Snake::AddPart()
 {
-	std::cout << "AddPart has been called\n";
 	if (IsPartInNextToLeftOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
 	{
 		// the part is in front of the last one so it looks like this:
 		// - -
 		// so we need to add the next one here ^
-		//     
-		std::cout << "IsPartInNextToLeftOf\n";
 		auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
 		auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
 		sf::Sprite CopyOfSprite = snake_part;
@@ -91,7 +87,6 @@ void Snake::AddPart()
 	}
 	else if (IsPartInNextToRightOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
 	{
-		std::cout << "IsPartInNextToRightOf\n";
 		auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
 		auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
 		sf::Sprite CopyOfSprite = snake_part;
@@ -101,7 +96,6 @@ void Snake::AddPart()
 
 	else if (IsPartAboveOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
 	{
-		std::cout << "IsPartAboveOf\n";
 		auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
 		auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
 		sf::Sprite CopyOfSprite = snake_part;
@@ -111,7 +105,6 @@ void Snake::AddPart()
 
 	else if (IsPartBelowOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
 	{
-		std::cout << "IsPartBelowOf\n";
 		auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
 		auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
 		sf::Sprite CopyOfSprite = snake_part;
@@ -160,12 +153,7 @@ void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
 	//A = B;
 	//B = CopyOfASprite
 
-	// first swap the textures.
-	sf::Texture CopyOfATexture = *A.getTexture();
-	A.setTexture(*B.getTexture());
-	B.setTexture(CopyOfATexture);
-
-	// then swap the positions
+	// swap the positions
 	sf::Vector2f CopyOfAPosition = A.getPosition();
 	A.setPosition(B.getPosition());
 	B.setPosition(CopyOfAPosition);
@@ -228,10 +216,29 @@ bool Snake::HasCollidedWithSelf()
 	return false;
 }
 
+void Snake::Update()
+{
+	if (sprites.size() >= 5)
+	{
+		current_speed = 400ms;
+	}
+	if (sprites.size() >= 10)
+	{
+		current_speed = 300ms;
+	}
+	if (sprites.size() >= 15)
+	{
+		current_speed = 200ms;
+	}
+	if (sprites.size() >= 20)
+	{
+		current_speed = 100ms;
+	}
+}
+
 void Snake::MoveUp()
 {
 	CurrentStateMoving = 3;
-	std::cout << "MoveUp called\n";
 	sf::Sprite head = sprites[0];
 	sf::Sprite black_square = head;
 	black_square.setPosition((head.getPosition().x), (head.getPosition().y - (head.getGlobalBounds().height / 2)));

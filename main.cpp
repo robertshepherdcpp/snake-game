@@ -48,8 +48,10 @@ int main()
         if (snake.HasCollidedWithSelf())
         {
             snake.Die();
+            fruit.Hide();
         }
 
+        snake.Update();
         snake.Move();
 
         window.clear();

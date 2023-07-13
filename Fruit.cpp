@@ -13,9 +13,12 @@ Fruit::Fruit()
 
 void Fruit::draw(sf::RenderWindow& window)
 {
-	random_position();
-	sprite.setPosition(random_x, random_y);
-	window.draw(sprite);
+	if (should_be_hidden == false)
+	{
+		random_position();
+		sprite.setPosition(random_x, random_y);
+		window.draw(sprite);
+	}
 }
 
 void Fruit::random_position()
@@ -47,4 +50,9 @@ bool Fruit::HasBeenEaten()
 void Fruit::SetHasBeenEaten()
 {
 	has_been_eaten = true;
+}
+
+void Fruit::Hide()
+{
+	should_be_hidden = true;
 }

@@ -15,9 +15,12 @@ struct Fruit
 
 	void SetHasBeenEaten();
 
+	void Hide();
+
 	bool has_been_eaten = false;
 	int random_x = 42;
 	int random_y = 79;
+	bool should_be_hidden = false;
 
 	sf::Texture texture;
 	sf::Sprite sprite;
