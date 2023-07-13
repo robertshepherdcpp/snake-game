@@ -39,7 +39,7 @@ int main()
             }
         }
 
-        if (snake.AnyHaveCollisionsWith(fruit))
+        if (snake.AnyHaveCollisionsWith(fruit) && !snake.is_dead)
         {
             snake.AddPart();
             fruit.SetHasBeenEaten();
