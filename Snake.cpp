@@ -217,13 +217,7 @@ void Snake::MoveUp()
 {
 	std::cout << "MoveUp called\n";
 	sf::Sprite head = sprites[0];
-	sf::Texture texture_;
-	if (!texture_.loadFromFile("snake_part.png"))
-	{
-		// handle the error
-	}
-	sf::Sprite black_square;
-	black_square.setTexture(texture_);
+	sf::Sprite black_square = head;
 	black_square.setPosition((head.getPosition().x), (head.getPosition().y - (head.getGlobalBounds().height / 2)));
 	sprites.push_back(black_square);
 	for (int i = 0; i < sprites.size(); i++)
