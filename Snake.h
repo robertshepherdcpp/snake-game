@@ -47,7 +47,9 @@ struct Snake
 	std::chrono::time_point<std::chrono::system_clock> last_time_point = std::chrono::system_clock::now();
 
 	decltype(500ms) current_speed = 500ms;
-
+	sf::Vector2u window_size{};
+	int window_size_x = 0;
+	int window_size_y = 0;
 	// MoveRight = 1
     // MoveLeft = 2
     // MoveUp = 3

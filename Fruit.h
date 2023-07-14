@@ -22,6 +22,11 @@ struct Fruit
 	int random_y = 79;
 	bool should_be_hidden = false;
 
+	sf::Vector2u window_size{};
+
+	int window_size_x = 0;
+	int window_size_y = 0;
+
 	sf::Texture texture;
 	sf::Sprite sprite;
 };

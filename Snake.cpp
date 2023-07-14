@@ -3,6 +3,7 @@
 #include "Snake.h"
 
 #include<chrono>
+#include<iostream>
 
 using namespace std::chrono_literals;
 
@@ -117,20 +118,34 @@ void Snake::draw(sf::RenderWindow& window)
 {
 	if (!is_dead)
 	{
-		sf::Texture snake_texture;
-		if (!snake_texture.loadFromFile("snake_part.png"))
+		window_size = window.getSize();
+		window_size_x = window_size.x;
+		window_size_y = window_size.y;
+		if ((sprites[0].getPosition().x > window_size_x) ||
+			(sprites[0].getPosition().x < 0) ||
+			(sprites[0].getPosition().y > window_size_y) ||
+			(sprites[0].getPosition().y < 0))
 		{
-			// handle error
+			std::cout << "You died becuase you went out of bounds\n";
+			is_dead = true;
 		}
-
-		for (int i = 0; i < sprites.size(); i++)
+		else
 		{
-			sprites[i].setTexture(snake_texture);
-		}
+			sf::Texture snake_texture;
+			if (!snake_texture.loadFromFile("snake_part.png"))
+			{
+				// handle error
+			}
 
-		for (sf::Sprite const& x : sprites)
-		{
-			window.draw(x);
+			for (int i = 0; i < sprites.size(); i++)
+			{
+				sprites[i].setTexture(snake_texture);
+			}
+
+			for (sf::Sprite const& x : sprites)
+			{
+				window.draw(x);
+			}
 		}
 	}
 }

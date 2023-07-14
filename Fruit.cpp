@@ -15,6 +15,9 @@ Fruit::Fruit()
 
 void Fruit::draw(sf::RenderWindow& window)
 {
+	window_size = window.getSize();
+	window_size_x = window_size.x - sprite.getGlobalBounds().width * 2;
+	window_size_y = window_size.y - sprite.getGlobalBounds().height * 2;
 	if (should_be_hidden == false)
 	{
 		random_position();
@@ -29,12 +32,12 @@ void Fruit::random_position()
 	{
 		std::random_device dev;
 		std::mt19937 rng(dev());
-		std::uniform_int_distribution<std::mt19937::result_type> dist6(0, 170);
+		std::uniform_int_distribution<std::mt19937::result_type> dist6(0, window_size_x);
 		random_x = dist6(rng);
 
 		std::random_device dev_two;
 		std::mt19937 rng_two(dev_two());
-		std::uniform_int_distribution<std::mt19937::result_type> dist6_two(0, 100);
+		std::uniform_int_distribution<std::mt19937::result_type> dist6_two(0, window_size_y);
 		random_y = dist6_two(rng_two);
 		has_been_eaten = false;
 	}
