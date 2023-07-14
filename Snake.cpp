@@ -137,7 +137,17 @@ void Snake::draw(sf::RenderWindow& window)
 				// handle error
 			}
 
-			for (int i = 0; i < sprites.size(); i++)
+			sf::Texture red_square;
+			if (!red_square.loadFromFile("red_square.png"))
+			{
+				// handle the error.
+			}
+
+			// make the head look different to the rest
+			sprites[0].setTexture(red_square);
+
+			// 1 and not zero because the head will be red.
+			for (int i = 1; i < sprites.size(); i++)
 			{
 				sprites[i].setTexture(snake_texture);
 			}
@@ -226,7 +236,8 @@ bool Snake::HasCollidedWithSelf()
 				sf::Sprite B = sprites[j];
 				if (A.getGlobalBounds().intersects(B.getGlobalBounds()) && (difference_between(i, j) > 2) && !is_dead)
 				{
-					return true;
+					return false;
+					// FIXME, turn this back to returning true just for testing purposes
 				}
 			}
 		}
