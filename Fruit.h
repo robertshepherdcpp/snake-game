@@ -18,8 +18,8 @@ struct Fruit
 	void Hide();
 
 	bool has_been_eaten = false;
-	int random_x = 42;
-	int random_y = 79;
+	int random_x = 94;
+	int random_y = 90;
 	bool should_be_hidden = false;
 
 	sf::Vector2u window_size{};

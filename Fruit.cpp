@@ -40,6 +40,8 @@ void Fruit::random_position()
 		std::uniform_int_distribution<std::mt19937::result_type> dist6_two(0, window_size_y);
 		random_y = dist6_two(rng_two);
 		has_been_eaten = false;
+
+		std::cout << "(" << random_x << ", " << random_y << ")\n";
 	}
 	else
 	{
