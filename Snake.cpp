@@ -75,42 +75,45 @@ bool Snake::IsPartBelowOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheLeftOfLas
 
 void Snake::AddPart()
 {
-	if (IsPartInNextToLeftOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
+	if (!is_dead)
 	{
-		// the part is in front of the last one so it looks like this:
-		// - -
-		// so we need to add the next one here ^
-		auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
-		auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
-		sf::Sprite CopyOfSprite = snake_part;
-		CopyOfSprite.setPosition((PositionOfSprite.x + (sizeOfSprite.width) / 2), (PositionOfSprite.y));
-		sprites.push_back(CopyOfSprite);
-	}
-	else if (IsPartInNextToRightOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
-	{
-		auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
-		auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
-		sf::Sprite CopyOfSprite = snake_part;
-		CopyOfSprite.setPosition((PositionOfSprite.x - (sizeOfSprite.width) / 2), (PositionOfSprite.y));
-		sprites.push_back(CopyOfSprite);
-	}
+		if (IsPartInNextToLeftOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
+		{
+			// the part is in front of the last one so it looks like this:
+			// - -
+			// so we need to add the next one here ^
+			auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
+			auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
+			sf::Sprite CopyOfSprite = snake_part;
+			CopyOfSprite.setPosition((PositionOfSprite.x + (sizeOfSprite.width) / 2), (PositionOfSprite.y));
+			sprites.push_back(CopyOfSprite);
+		}
+		else if (IsPartInNextToRightOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
+		{
+			auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
+			auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
+			sf::Sprite CopyOfSprite = snake_part;
+			CopyOfSprite.setPosition((PositionOfSprite.x - (sizeOfSprite.width) / 2), (PositionOfSprite.y));
+			sprites.push_back(CopyOfSprite);
+		}
 
-	else if (IsPartAboveOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
-	{
-		auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
-		auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
-		sf::Sprite CopyOfSprite = snake_part;
-		CopyOfSprite.setPosition((PositionOfSprite.x), (PositionOfSprite.y - (sizeOfSprite.height) / 2));
-		sprites.push_back(CopyOfSprite);
-	}
+		else if (IsPartAboveOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
+		{
+			auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
+			auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
+			sf::Sprite CopyOfSprite = snake_part;
+			CopyOfSprite.setPosition((PositionOfSprite.x), (PositionOfSprite.y - (sizeOfSprite.height) / 2));
+			sprites.push_back(CopyOfSprite);
+		}
 
-	else if (IsPartBelowOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
-	{
-		auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
-		auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
-		sf::Sprite CopyOfSprite = snake_part;
-		CopyOfSprite.setPosition((PositionOfSprite.x), (PositionOfSprite.y + (sizeOfSprite.height) / 2));
-		sprites.push_back(CopyOfSprite);
+		else if (IsPartBelowOf(sprites.at(sprites.size() - 1), sprites.at(sprites.size() - 2)))
+		{
+			auto sizeOfSprite = sprites.at(sprites.size() - 1).getGlobalBounds(); // .width
+			auto PositionOfSprite = sprites.at(sprites.size() - 1).getPosition(); // .x && .y
+			sf::Sprite CopyOfSprite = snake_part;
+			CopyOfSprite.setPosition((PositionOfSprite.x), (PositionOfSprite.y + (sizeOfSprite.height) / 2));
+			sprites.push_back(CopyOfSprite);
+		}
 	}
 }
 
@@ -158,6 +161,22 @@ void Snake::draw(sf::RenderWindow& window)
 			}
 		}
 	}
+	else
+	{
+		sf::Texture head_texture;
+		if (!head_texture.loadFromFile("red_square.png"))
+		{
+			// handle error
+		}
+		for (int i = 1; i < sprites.size(); i++)
+		{
+			sprites[i].setTexture(head_texture);
+		}
+		for (sf::Sprite const& x : sprites)
+		{
+			window.draw(x);
+		}
+	}
 }
 
 bool Snake::AnyHaveCollisionsWith(Fruit& f)
@@ -186,7 +205,7 @@ void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
 
 void Snake::MoveDown()
 {
-	if (!(CurrentStateMoving == 4) || true)
+	if (!is_dead)
 	{
 		CurrentStateMoving = 4;
 		sf::Sprite head = sprites[0];
@@ -275,7 +294,7 @@ void Snake::Update()
 
 void Snake::MoveUp()
 {
-	if (!(CurrentStateMoving == 3) || true)
+	if (!is_dead)
 	{
 		CurrentStateMoving = 3;
 		sf::Sprite head = sprites[0];
@@ -331,7 +350,7 @@ void Snake::Move()
 
 void Snake::MoveRight()
 {
-	if (!(CurrentStateMoving == 1) || true)
+	if (!is_dead)
 	{
 		CurrentStateMoving = 1;
 		sf::Sprite head = sprites[0];
@@ -354,7 +373,7 @@ void Snake::MoveRight()
 
 void Snake::MoveLeft()
 {
-	if (!(CurrentStateMoving == 2) || true)
+	if (!is_dead)
 	{
 		sf::Sprite head = sprites[0];
 		sf::Texture texture_;
