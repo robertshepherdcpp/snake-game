@@ -288,7 +288,7 @@ void Snake::Update()
 	}
 	if (sprites.size() >= 30)
 	{
-		current_speed = 25ms;
+		current_speed = 35ms;
 	}
 }
 
