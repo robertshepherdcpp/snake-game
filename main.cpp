@@ -8,7 +8,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(200, 200), "Snake");
 
     Snake snake;
     Fruit fruit;
