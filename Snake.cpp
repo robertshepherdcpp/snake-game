@@ -163,18 +163,27 @@ void Snake::draw(sf::RenderWindow& window)
 	}
 	else
 	{
-		sf::Texture head_texture;
-		if (!head_texture.loadFromFile("red_square.png"))
+		if (!HasDoneIsDead)
 		{
-			// handle error
+			sf::Texture head_texture;
+			if (!head_texture.loadFromFile("red_square.png"))
+			{
+				// handle error
+			}
+			for (int i = 1; i < sprites.size(); i++)
+			{
+				sprites[i].setTexture(head_texture);
+			}
+			for (sf::Sprite const& x : sprites)
+			{
+				window.draw(x);
+			}
+			std::this_thread::sleep_for(5s);
+			HasDoneIsDead = true;
 		}
-		for (int i = 1; i < sprites.size(); i++)
+		else
 		{
-			sprites[i].setTexture(head_texture);
-		}
-		for (sf::Sprite const& x : sprites)
-		{
-			window.draw(x);
+			// do nothing
 		}
 	}
 }
@@ -302,6 +311,7 @@ void Snake::MoveUp()
 		black_square.setPosition((head.getPosition().x), (head.getPosition().y - (head.getGlobalBounds().height / 2)));
 		sprites.push_back(black_square);
 		for (int i = 0; i < sprites.size(); i++)
+
 		{
 			// so we will have an invisible block and then we just keep swapping that block with the other blocks
 			// and it will move all of the other blocks up one position.

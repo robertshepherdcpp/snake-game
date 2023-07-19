@@ -43,6 +43,7 @@ struct Snake
 
 	bool is_dead = false;
 	int CurrentStateMoving = 0;
+	bool HasDoneIsDead = false;
 
 	std::chrono::time_point<std::chrono::system_clock> last_time_point = std::chrono::system_clock::now();
 
