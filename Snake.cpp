@@ -178,8 +178,8 @@ void Snake::draw(sf::RenderWindow& window)
 			{
 				window.draw(x);
 			}
-			std::this_thread::sleep_for(5s);
-			HasDoneIsDead = true;
+			//std::this_thread::sleep_for(5s);
+			//HasDoneIsDead = true;
 		}
 		else
 		{
