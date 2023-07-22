@@ -301,16 +301,9 @@ void Snake::MoveUp()
 		sf::Sprite black_square = head;
 		black_square.setPosition((head.getPosition().x), (head.getPosition().y - (head.getGlobalBounds().height / 2)));
 		sprites.push_back(black_square);
-		/*
-		for (int i = 0; i < sprites.size(); i++)
 
-		{
-			// so we will have an invisible block and then we just keep swapping that block with the other blocks
-			// and it will move all of the other blocks up one position.
-			SwapSprites(black_square, sprites[i]);
-		}
-		*/
 		std::ranges::for_each(sprites, [&](sf::Sprite& sprite) {SwapSprites(black_square, sprite); });
+
 		sprites.pop_back();
 	}
 }
