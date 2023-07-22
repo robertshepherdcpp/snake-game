@@ -195,24 +195,6 @@ bool Snake::AnyHaveCollisionsWith(Fruit& f) const
 		}
 	}
 	return false;
-
-	/*
-	* if(std::ranges::any_of(sprites.begin(), sprite.end(), [&](sf::Sprite sprite)
-	{
-		if (part.getGlobalBounds().intersects(f.sprite.getGlobalBounds()))
-		{
-			return true;
-		}
-		return false;
-	})
-	{
-	return true;
-	}
-	else
-	{
-	return false;
-	}
-	*/
 }
 
 void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
