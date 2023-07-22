@@ -4,6 +4,7 @@
 
 #include<chrono>
 #include<iostream>
+#include<ranges>
 
 using namespace std::chrono_literals;
 
@@ -174,12 +175,8 @@ void Snake::draw(sf::RenderWindow& window)
 			{
 				sprites[i].setTexture(head_texture);
 			}
-			for (sf::Sprite const& x : sprites)
-			{
-				window.draw(x);
-			}
-			//std::this_thread::sleep_for(5s);
-			//HasDoneIsDead = true;
+
+			std::ranges::for_each(sprites, [&](sf::Sprite& const sprite) {window.draw(sprite); });
 		}
 		else
 		{
@@ -198,6 +195,24 @@ bool Snake::AnyHaveCollisionsWith(Fruit& f) const
 		}
 	}
 	return false;
+
+	/*
+	* if(std::ranges::any_of(sprites.begin(), sprite.end(), [&](sf::Sprite sprite)
+	{
+		if (part.getGlobalBounds().intersects(f.sprite.getGlobalBounds()))
+		{
+			return true;
+		}
+		return false;
+	})
+	{
+	return true;
+	}
+	else
+	{
+	return false;
+	}
+	*/
 }
 
 void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
@@ -222,12 +237,10 @@ void Snake::MoveDown()
 		sf::Sprite black_square;
 		black_square.setTexture(texture_);
 		black_square.setPosition((head.getPosition().x), (head.getPosition().y + (head.getGlobalBounds().height / 2)));
-		for (int i = 0; i < sprites.size(); i++)
+		std::ranges::for_each(sprites, [&](sf::Sprite& sprite)
 		{
-			// so we will have an invisible block and then we just keep swapping that block with the other blocks
-			// and it will move all of the other blocks up one position.
-			SwapSprites(black_square, sprites[i]);
-		}
+				SwapSprites(black_square, sprite);
+		});
 	}
 }
 
@@ -306,6 +319,7 @@ void Snake::MoveUp()
 		sf::Sprite black_square = head;
 		black_square.setPosition((head.getPosition().x), (head.getPosition().y - (head.getGlobalBounds().height / 2)));
 		sprites.push_back(black_square);
+		/*
 		for (int i = 0; i < sprites.size(); i++)
 
 		{
@@ -313,6 +327,8 @@ void Snake::MoveUp()
 			// and it will move all of the other blocks up one position.
 			SwapSprites(black_square, sprites[i]);
 		}
+		*/
+		std::ranges::for_each(sprites, [&](sf::Sprite& sprite) {SwapSprites(black_square, sprite); });
 		sprites.pop_back();
 	}
 }
@@ -368,12 +384,10 @@ void Snake::MoveRight()
 		sf::Sprite black_square;
 		black_square.setTexture(texture_);
 		black_square.setPosition((head.getPosition().x + (head.getGlobalBounds().width / 2)), head.getPosition().y);
-		for (int i = 0; i < sprites.size(); i++)
+		std::ranges::for_each(sprites, [&](sf::Sprite& sprite)
 		{
-			// so we will have an invisible block and then we just keep swapping that block with the other blocks
-			// and it will move all of the other blocks up one position.
-			SwapSprites(black_square, sprites[i]);
-		}
+				SwapSprites(black_square, sprite);
+		});
 	}
 }
 
@@ -381,6 +395,7 @@ void Snake::MoveLeft()
 {
 	if (!is_dead)
 	{
+		CurrentStateMoving = 2;
 		sf::Sprite head = sprites[0];
 		sf::Texture texture_;
 		if (!texture_.loadFromFile("black_square.png"))
@@ -390,12 +405,9 @@ void Snake::MoveLeft()
 		sf::Sprite black_square;
 		black_square.setTexture(texture_);
 		black_square.setPosition((head.getPosition().x - (head.getGlobalBounds().width / 2)), head.getPosition().y);
-		for (int i = 0; i < sprites.size(); i++)
+		std::ranges::for_each(sprites, [&](sf::Sprite& sprite)
 		{
-			// so we will have an invisible block and then we just keep swapping that block with the other blocks
-			// and it will move all of the other blocks up one position.
-			SwapSprites(black_square, sprites[i]);
-		}
-		CurrentStateMoving = 2;
+				SwapSprites(black_square, sprite);
+		});
 	}
 }
