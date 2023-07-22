@@ -25,7 +25,7 @@ Snake::Snake()
 	sprites.push_back(CopyOfSprite);
 }
 
-bool Snake::IsPartInNextToLeftOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheLeftOfLast)
+bool Snake::IsPartInNextToLeftOf(sf::Sprite& Last, sf::Sprite& IsThisSpriteToTheLeftOfLast) const noexcept
 {
 	if ((Last.getPosition().y == IsThisSpriteToTheLeftOfLast.getPosition().y) && (Last.getPosition().x > IsThisSpriteToTheLeftOfLast.getPosition().x))
 	{
@@ -37,7 +37,7 @@ bool Snake::IsPartInNextToLeftOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheLe
 	}
 }
 
-bool Snake::IsPartInNextToRightOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheLeftOfLast)
+bool Snake::IsPartInNextToRightOf(sf::Sprite& Last, sf::Sprite& IsThisSpriteToTheLeftOfLast) const noexcept
 {
 	if ((Last.getPosition().y == IsThisSpriteToTheLeftOfLast.getPosition().y) && (Last.getPosition().x < IsThisSpriteToTheLeftOfLast.getPosition().x))
 	{
@@ -49,7 +49,7 @@ bool Snake::IsPartInNextToRightOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheL
 	}
 }
 
-bool Snake::IsPartAboveOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheLeftOfLast)
+bool Snake::IsPartAboveOf(sf::Sprite& Last, sf::Sprite& IsThisSpriteToTheLeftOfLast) const noexcept
 {
 	if ((Last.getPosition().x == IsThisSpriteToTheLeftOfLast.getPosition().x) && (Last.getPosition().y < IsThisSpriteToTheLeftOfLast.getPosition().y))
 	{
@@ -61,7 +61,7 @@ bool Snake::IsPartAboveOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheLeftOfLas
 	}
 }
 
-bool Snake::IsPartBelowOf(sf::Sprite Last, sf::Sprite IsThisSpriteToTheLeftOfLast)
+bool Snake::IsPartBelowOf(sf::Sprite& Last, sf::Sprite& IsThisSpriteToTheLeftOfLast) const noexcept
 {
 	if ((Last.getPosition().x == IsThisSpriteToTheLeftOfLast.getPosition().x) && (Last.getPosition().y > IsThisSpriteToTheLeftOfLast.getPosition().y))
 	{
@@ -122,8 +122,8 @@ void Snake::draw(sf::RenderWindow& window)
 	if (!is_dead)
 	{
 		window_size = window.getSize();
-		window_size_x = window_size.x;
-		window_size_y = window_size.y;
+		window_size_x = static_cast<float>(window_size.x);
+		window_size_y = static_cast<float>(window_size.y);
 		if ((sprites[0].getPosition().x > window_size_x) ||
 			(sprites[0].getPosition().x < 0) ||
 			(sprites[0].getPosition().y > window_size_y) ||
@@ -188,7 +188,7 @@ void Snake::draw(sf::RenderWindow& window)
 	}
 }
 
-bool Snake::AnyHaveCollisionsWith(Fruit& f)
+bool Snake::AnyHaveCollisionsWith(Fruit& f) const
 {
 	for (sf::Sprite const& part : sprites)
 	{
@@ -202,10 +202,6 @@ bool Snake::AnyHaveCollisionsWith(Fruit& f)
 
 void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
 {
-	//sf::Sprite CopyOfASprite = A;
-	//A = B;
-	//B = CopyOfASprite
-
 	// swap the positions
 	sf::Vector2f CopyOfAPosition = A.getPosition();
 	A.setPosition(B.getPosition());
@@ -264,8 +260,8 @@ bool Snake::HasCollidedWithSelf()
 				sf::Sprite B = sprites[j];
 				if (A.getGlobalBounds().intersects(B.getGlobalBounds()) && (difference_between(i, j) > 2) && !is_dead)
 				{
-					return false;
-					// FIXME, turn this back to returning true just for testing purposes
+					return true;
+					// Could turn this back to returning true just for testing purposes
 				}
 			}
 		}
