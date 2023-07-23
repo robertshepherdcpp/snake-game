@@ -5,6 +5,7 @@
 #include<chrono>
 #include<iostream>
 #include<ranges>
+#include<algorithm>
 
 using namespace std::chrono_literals;
 
@@ -195,6 +196,17 @@ bool Snake::AnyHaveCollisionsWith(Fruit& f) const
 		}
 	}
 	return false;
+
+	/*
+	if(my::ranges::any_of(sprites, [&](sf::Sprite& part){return part.getGlobalBounds().intersects(f.sprite.getGlobalBounds());}))
+	{
+	    return true;
+	}
+	else
+	{
+	    return false;
+	}
+	*/
 }
 
 void Snake::SwapSprites(sf::Sprite& A, sf::Sprite& B)
@@ -255,7 +267,7 @@ bool Snake::HasCollidedWithSelf()
 				sf::Sprite B = sprites[j];
 				if (A.getGlobalBounds().intersects(B.getGlobalBounds()) && (difference_between(i, j) > 2) && !is_dead)
 				{
-					return true;
+					return false; // allow the snake to crash into itself
 					// Could turn this back to returning true just for testing purposes
 				}
 			}
