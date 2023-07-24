@@ -302,6 +302,19 @@ void Snake::Update()
 	{
 		current_speed = 35ms;
 	}
+	if (sprites.size() >= 40)
+	{
+		current_speed = 20ms;
+	}
+	if (sprites.size() >= 60)
+	{
+		current_speed = 10ms;
+	}
+	if (sprites.size() >= 100)
+	{
+		current_speed = 2ms;
+	}
+
 }
 
 void Snake::MoveUp()
