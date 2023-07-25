@@ -46,6 +46,8 @@ int main()
                         snake.current_speed = 500ms;
                         fruit.should_be_hidden = false;
                         snake.is_dead = false;
+                        snake.MoveDown();
+                        snake.MoveDown();
                     }
                     else
                     {
