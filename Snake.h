@@ -40,6 +40,7 @@ struct Snake
 	sf::Sprite snake_part;
 
 	std::vector<sf::Sprite> sprites{};
+	std::vector<sf::Sprite> original_sprites{};
 
 	bool is_dead = false;
 	int CurrentStateMoving = 0;

@@ -22,9 +22,11 @@ Snake::Snake()
 
 	snake_part.setPosition(10, 10);
 	sprites.push_back(snake_part);
+	original_sprites.push_back(snake_part);
 	sf::Sprite CopyOfSprite = snake_part;
 	CopyOfSprite.setPosition(10, (10 + (CopyOfSprite.getGlobalBounds().height) / 2));
 	sprites.push_back(CopyOfSprite);
+	original_sprites.push_back(CopyOfSprite);
 }
 
 bool Snake::IsPartInNextToLeftOf(sf::Sprite& Last, sf::Sprite& IsThisSpriteToTheLeftOfLast) const noexcept
@@ -253,6 +255,7 @@ auto Snake::difference_between(int a, int b) -> int
 void Snake::Die()
 {
 	is_dead = true;
+	std::cout << "Final score was " << sprites.size() << "\n";
 }
 
 bool Snake::HasCollidedWithSelf()

@@ -5,10 +5,19 @@
 #include "Menu.h"
 
 #include<iostream>
+#include<chrono>
+
+using namespace std::chrono_literals;
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "Snake");
+
+    sf::Texture restart_texture;
+    restart_texture.loadFromFile("restart.png");
+    sf::Sprite restart;
+    restart.setTexture(restart_texture);
+    restart.setPosition(80.0f, 80.0f);
 
     Snake snake;
     Fruit fruit;
@@ -29,30 +38,42 @@ int main()
                 }
                 if (event.type == sf::Event::KeyPressed)
                 {
-                    if (has_pressed_q)
+                    if (snake.is_dead)
                     {
-                        if (event.key.code == sf::Keyboard::D)
-                        {
-                            snake.MoveRight();
-                        }
-                        if (event.key.code == sf::Keyboard::A)
-                        {
-                            snake.MoveLeft();
-                        }
-                        if (event.key.code == sf::Keyboard::S)
-                        {
-                            snake.MoveDown();
-                        }
-                        if (event.key.code == sf::Keyboard::W)
-                        {
-                            snake.MoveUp();
-                        }
+                        snake.is_dead = false;
+                        snake.sprites.clear();
+                        snake.sprites = snake.original_sprites;
+                        snake.current_speed = 500ms;
+                        fruit.should_be_hidden = false;
+                        snake.is_dead = false;
                     }
                     else
                     {
-                        if (event.key.code == sf::Keyboard::Q)
+                        if (has_pressed_q)
                         {
-                            has_pressed_q = true;
+                            if (event.key.code == sf::Keyboard::D)
+                            {
+                                snake.MoveRight();
+                            }
+                            if (event.key.code == sf::Keyboard::A)
+                            {
+                                snake.MoveLeft();
+                            }
+                            if (event.key.code == sf::Keyboard::S)
+                            {
+                                snake.MoveDown();
+                            }
+                            if (event.key.code == sf::Keyboard::W)
+                            {
+                                snake.MoveUp();
+                            }
+                        }
+                        else
+                        {
+                            if (event.key.code == sf::Keyboard::Q)
+                            {
+                                has_pressed_q = true;
+                            }
                         }
                     }
                 }
@@ -77,6 +98,10 @@ int main()
             if (!has_pressed_q)
             {
                 menu.draw(window);
+            }
+            if (snake.is_dead)
+            {
+                window.draw(restart);
             }
             snake.draw(window);
             fruit.draw(window);
