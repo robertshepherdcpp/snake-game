@@ -180,7 +180,7 @@ void Snake::draw(sf::RenderWindow& window)
 				sprites[i].setTexture(head_texture);
 			}
 
-			std::ranges::for_each(sprites, [&](sf::Sprite& const sprite) {window.draw(sprite); });
+			std::ranges::for_each(sprites, [&](const sf::Sprite& sprite) {window.draw(sprite); });
 		}
 		else
 		{
