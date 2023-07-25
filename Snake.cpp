@@ -191,7 +191,7 @@ void Snake::draw(sf::RenderWindow& window)
 
 bool Snake::AnyHaveCollisionsWith(Fruit& f) const
 {
-	for (sf::Sprite const& part : sprites)
+	for (const sf::Sprite& part : sprites)
 	{
 		if (part.getGlobalBounds().intersects(f.sprite.getGlobalBounds()))
 		{
