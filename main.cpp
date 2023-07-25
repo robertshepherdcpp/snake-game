@@ -48,6 +48,8 @@ int main()
                         snake.is_dead = false;
                         snake.MoveDown();
                         snake.MoveDown();
+                        snake.MoveRight();
+                        snake.MoveRight();
                     }
                     else
                     {
