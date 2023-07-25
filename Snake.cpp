@@ -134,6 +134,7 @@ void Snake::draw(sf::RenderWindow& window)
 			(sprites[0].getPosition().y < 0))
 		{
 			std::cout << "You died becuase you went out of bounds\n";
+			std::cout << "Your final score was " << sprites.size() << "\n";
 			is_dead = true;
 		}
 		else
