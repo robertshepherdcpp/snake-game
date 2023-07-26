@@ -21,7 +21,7 @@ struct Snake
 	bool IsPartAboveOf(sf::Sprite&, sf::Sprite&) const noexcept;
 	bool IsPartBelowOf(sf::Sprite&, sf::Sprite&) const noexcept;
 
-	bool AnyHaveCollisionsWith(Fruit& f) const;
+	bool AnyHaveCollisionsWith(const Fruit& f) const;
 	bool HasCollidedWithSelf();
 
 	void MoveLeft();

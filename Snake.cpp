@@ -189,7 +189,7 @@ void Snake::draw(sf::RenderWindow& window)
 	}
 }
 
-bool Snake::AnyHaveCollisionsWith(Fruit& f) const
+bool Snake::AnyHaveCollisionsWith(const Fruit& f) const
 {
 	for (const sf::Sprite& part : sprites)
 	{
