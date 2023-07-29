@@ -57,17 +57,6 @@ bool Fruit::HasBeenEaten()
 
 void Fruit::SetHasBeenEaten()
 {
-	std::thread thread([]() {
-		sf::SoundBuffer Buffer;
-		if (!Buffer.loadFromFile("eat_sound.wav"))
-		{
-			// Error...
-		}
-		sf::Sound Sound;
-		Sound.setBuffer(Buffer); // Buffer is a sf::SoundBuffer
-		Sound.play();
-		});
-	thread.join();
 	has_been_eaten = true;
 	std::cout << "Fruit has been eaten\n";
 }
