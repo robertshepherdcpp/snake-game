@@ -36,7 +36,7 @@ int main()
                     std::cout << "Your final score was: " << snake.sprites.size() << "\n";
                     window.close();
                 }
-                if (event.type == sf::Event::KeyPressed)
+                if (event.type == sf::Event::KeyReleased)
                 {
                     if (snake.is_dead)
                     {
@@ -51,8 +51,9 @@ int main()
                         snake.MoveRight();
                         snake.MoveRight();
                     }
-                    else
-                    {
+                }
+                if (event.type == sf::Event::KeyPressed)
+                {
                         if (has_pressed_q)
                         {
                             if (event.key.code == sf::Keyboard::D)
@@ -79,7 +80,6 @@ int main()
                                 has_pressed_q = true;
                             }
                         }
-                    }
                 }
             }
 
