@@ -27,6 +27,6 @@ struct Fruit
 	int window_size_x = 0;
 	int window_size_y = 0;
 
-	sf::Texture texture;
-	sf::Sprite sprite;
+	//sf::Texture texture;
+	sf::CircleShape sprite;
 };

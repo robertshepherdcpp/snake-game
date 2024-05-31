@@ -24,7 +24,7 @@ Snake::Snake()
 	sprites.push_back(snake_part);
 	original_sprites.push_back(snake_part);
 	sf::Sprite CopyOfSprite = snake_part;
-	CopyOfSprite.setPosition(10, (10 + (CopyOfSprite.getGlobalBounds().height) / 2));
+	CopyOfSprite.setPosition(10, (1 + (CopyOfSprite.getGlobalBounds().height) / 2));
 	sprites.push_back(CopyOfSprite);
 	original_sprites.push_back(CopyOfSprite);
 }

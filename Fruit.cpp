@@ -10,8 +10,8 @@
 
 Fruit::Fruit()
 {
-	texture.loadFromFile("fruit.png");
-	sprite.setTexture(texture);
+	sprite.setRadius(10);
+	sprite.setFillColor(sf::Color::Red);
 }
 
 void Fruit::draw(sf::RenderWindow& window)
